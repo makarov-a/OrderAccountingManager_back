@@ -39,8 +39,7 @@ public class PaginationHelper<E> {
         jt.query(
                 sqlFetchRows,
                 args,
-                new ResultSetExtractor() {
-                    public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+                (ResultSet rs) -> {
                         final List pageItems = page.getPageItems();
                         int currentRow = 0;
                         while (rs.next() && currentRow < startRow + pageSize) {
@@ -51,7 +50,7 @@ public class PaginationHelper<E> {
                         }
                         return page;
                     }
-                });
+                );
         return page;
     }
 
