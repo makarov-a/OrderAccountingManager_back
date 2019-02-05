@@ -2,16 +2,23 @@ package com.magical.oms.dto;
 
 import com.magical.oms.model.Customer;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.sql.Date;
 import java.util.List;
 
 public class OrderDto {
     private int id;
+    @NotNull
+    @PastOrPresent
     private Date creationDate;
+    @FutureOrPresent
     private Date deadlineDate;
     private float orderCost;
     private float prepayAmount;
     private String orderComment;
+    @NotNull
     private CustomerDto customer;
     private List<ProductDto> productsList;
     private boolean complete;

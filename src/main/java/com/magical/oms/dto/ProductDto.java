@@ -1,8 +1,11 @@
 package com.magical.oms.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class ProductDto {
     private int id;
     private String name;
+    @NotNull
     private float cost;
     private float size;
     private String img;

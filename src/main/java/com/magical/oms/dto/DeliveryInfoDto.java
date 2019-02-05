@@ -1,7 +1,10 @@
 package com.magical.oms.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class DeliveryInfoDto {
     private int id;
+    @NotNull
     private String address;
     private float costDelivery;
     private int customerId;
