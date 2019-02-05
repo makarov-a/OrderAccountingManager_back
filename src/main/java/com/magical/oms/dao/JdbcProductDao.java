@@ -20,10 +20,10 @@ public class JdbcProductDao implements ProductDao {
     private final String INSERT_SQL = "INSERT INTO products(name,cost,size,img,id_order) VALUES(?,?,?,?,?)";
     private final String UPDATE_SQL = "UPDATE products SET name = ?, cost = ?, size = ?, img = ?, id_order = ?  WHERE id = ?";
     private final String REMOVE_SQL = "DELETE FROM products WHERE id = ?";
-    private final String FETCH_SQL = "SELECT id, name, cost, size, img, id_order FROM products ORDER BY id";
+    private final String FETCH_SQL = "SELECT * FROM products ORDER BY id";
     private final String FETCH_SQL_BY_ID = "SELECT * FROM products WHERE id = ?";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM products ORDER BY id";
-    private final String FETCH_SQL_BY_ORDER_ID = "SELECT id, name, cost, size, img, id_order FROM products WHERE id_order = ?";
+    private final String FETCH_SQL_BY_ORDER_ID = "SELECT * FROM products WHERE id_order = ?";
     private final String FETCH_SQL_BY_CUSTOMER_ID = "SELECT * FROM products JOIN orders WHERE products.id_order = orders.id AND orders.customer_id = ?";
     @Autowired
     private DataSource dataSource;
@@ -85,7 +85,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public List<Product> getAllProducts(int pageNo, int pageSize) {
         logger.info("getAllProducts() is called");
-        PaginationHelper<Product> pageHelper = new PaginationHelper<Product>();
+        PaginationHelper<Product> pageHelper = new PaginationHelper<>();
         Page productsPage = pageHelper.fetchPage(this.jdbcTemplate, COUNT_PAGES_SQL, FETCH_SQL, new Object[]{},
                 pageNo, pageSize, new ProductRowMapper());
         return productsPage.getPageItems();

@@ -11,6 +11,7 @@ public class Order {
     private float prepayAmount;
     private String orderComment;
     private List<Product> orderList;
+    private int customerId;
 
     public int getId() {
         return id;
@@ -66,5 +67,13 @@ public class Order {
 
     public void setOrderList(List<Product> orderList) {
         this.orderList = orderList;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }
