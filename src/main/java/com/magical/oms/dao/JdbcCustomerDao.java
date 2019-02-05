@@ -18,11 +18,11 @@ public class JdbcCustomerDao implements CustomerDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcCustomerDao.class);
     private final String INSERT_SQL = "INSERT INTO customers(name,nickname,phone,contact_comment) VALUES(?,?,?,?,?)";
     private final String UPDATE_SQL = "UPDATE customers SET name = ?, nickname = ?, phone = ?, contact_comment WHERE id = ?";
-    private final String REMOVE_SQL = "DELETE FROM customers WHERE id = ?";
+    private final String REMOVE_SQL = "DELETE FROM customers WHERE id =";
     private final String FETCH_ALL_SQL = "SELECT * FROM customers ORDER BY id";
-    private final String FETCH_BY_ID_SQL = "SELECT * FROM customers WHERE id = ?";
-    private final String FETCH_BY_DELIVERY_ID_SQL = "SELECT * FROM customers JOIN delivery_info WHERE delivery_info.customer_id = customers.id AND delivery_info.id = ?";
-    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM customers WHERE id =";
+    private final String FETCH_BY_DELIVERY_ID_SQL = "SELECT * FROM customers JOIN delivery_info WHERE delivery_info.customer_id = customers.id AND delivery_info.id =";
+    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products JOIN orders WHERE order.customer_id = customers.id AND orders.id =";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM customers ORDER BY id";
     @Autowired
     private DataSource dataSource;

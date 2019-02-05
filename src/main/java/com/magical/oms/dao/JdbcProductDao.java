@@ -18,12 +18,12 @@ import java.util.List;
 public class JdbcProductDao implements ProductDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcProductDao.class);
     private final String INSERT_SQL = "INSERT INTO products(name,cost,size,img,id_order) VALUES(?,?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE products SET name = ?, cost = ?, size = ?, img = ?, id_order = ?  WHERE id = ?";
-    private final String REMOVE_SQL = "DELETE FROM products WHERE id = ?";
+    private final String UPDATE_SQL = "UPDATE products SET name = ?, cost = ?, size = ?, img = ?, id_order = ?  WHERE id =?";
+    private final String REMOVE_SQL = "DELETE FROM products WHERE id =";
     private final String FETCH_SQL = "SELECT * FROM products ORDER BY id";
-    private final String FETCH_BY_ID_SQL = "SELECT * FROM products WHERE id = ?";
-    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products WHERE id_order = ?";
-    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM products JOIN orders WHERE products.id_order = orders.id AND orders.customer_id = ?";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM products WHERE id =";
+    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products WHERE id_order =";
+    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM products JOIN orders WHERE products.id_order = orders.id AND orders.customer_id =";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM products ORDER BY id";
     @Autowired
     private DataSource dataSource;

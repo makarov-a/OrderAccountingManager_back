@@ -18,11 +18,11 @@ public class JdbcDeliveryInfoDao implements DeliveryInfoDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcDeliveryInfoDao.class);
     private final String INSERT_SQL = "INSERT INTO delivery_info(customer_id,address,delivery_cost) VALUES(?,?,?)";
     private final String UPDATE_SQL = "UPDATE delivery_info SET customer_id = ?, address = ?, delivery_cost = ? WHERE id = ?";
-    private final String REMOVE_SQL = "DELETE FROM delivery_info WHERE id = ?";
+    private final String REMOVE_SQL = "DELETE FROM delivery_info WHERE id =";
     private final String FETCH_ALL_SQL = "SELECT * FROM delivery_info ORDER BY id";
-    private final String FETCH_BY_ID_SQL = "SELECT * FROM delivery_info WHERE id = ?";
-    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM delivery_info WHERE customer_id = ?";
-    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM delivery_info JOIN orders WHERE delivery_info.customer_id = orders.customer_id AND orders.id = ?";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM delivery_info WHERE id =";
+    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM delivery_info WHERE customer_id =";
+    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM delivery_info JOIN orders WHERE delivery_info.customer_id = orders.customer_id AND orders.id =";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM delivery_info ORDER BY id";
     @Autowired
     private DataSource dataSource;

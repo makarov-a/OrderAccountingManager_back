@@ -17,13 +17,13 @@ import java.util.List;
 public class JdbcOrderDao implements OrderDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcOrderDao.class);
     private final String INSERT_SQL = "INSERT INTO orders(creation_date,deadline_date,order_cost,prepay_amount,order_comment,customer_id,delivery_id) VALUES(?,?,?,?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE orders SET creation_date = ?, deadline_date = ?, order_cost = ?, prepay_amount = ?, order_comment = ?, delivery_id = ?, customer_id =   WHERE id = ?";
+    private final String UPDATE_SQL = "UPDATE orders SET creation_date = ?, deadline_date = ?, order_cost = ?, prepay_amount = ?, order_comment = ?, customer_id = ?, delivery_id = ?  WHERE id = ?";
     //todo: обновление в products.id_order при update'е
-    private final String REMOVE_SQL = "DELETE FROM orders WHERE id = ?";
+    private final String REMOVE_SQL = "DELETE FROM orders WHERE id =";
     private final String FETCH_SQL = "SELECT * FROM orders ORDER BY id";
-    private final String FETCH_BY_ID_SQL = "SELECT * FROM orders WHERE id = ?";
-    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM orders JOIN customers WHERE orders.customer_id = customers.id AND customers.id = ?";
-    private final String FETCH_BY_PRODUCT_ID_SQL = "SELECT * FROM orders JOIN products WHERE products.id_order = orders.id AND products.id = ?";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM orders WHERE id =";
+    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM orders JOIN customers WHERE orders.customer_id = customers.id AND customers.id =";
+    private final String FETCH_BY_PRODUCT_ID_SQL = "SELECT * FROM orders JOIN products WHERE products.id_order = orders.id AND products.id =";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM orders ORDER BY id";
 
     @Autowired
@@ -93,7 +93,7 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public List<Order> getAllOrders(int pageNo, int pageSize) {
-        logger.info("getAllOrders() is called");
+        logger.info("getAllOrders() is called pageNo="+pageNo+" pageSize="+pageSize);
         PaginationHelper<Order> pageHelper = new PaginationHelper<>();
         Page ordersPage = pageHelper.fetchPage(this.jdbcTemplate, COUNT_PAGES_SQL, FETCH_SQL, new Object[]{},
                 pageNo, pageSize, new OrderRowMapper());
