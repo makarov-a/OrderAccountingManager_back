@@ -13,7 +13,7 @@ public interface OrderDao {
 
     boolean removeOrderById(int id);
 
-    int getCountPages(int size);
+    int getCountRows();
 
     List<Order> getAllOrders(final int pageNo, final int pageSize);
 

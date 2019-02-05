@@ -15,7 +15,7 @@ public interface CustomerDao {
 
     List<Customer> getAllCustomers(final int pageNo, final int pageSize);
 
-    int getCountPages(int size);
+    int getCountRows();
 
     Customer getCustomerByOrderId(int orderId);
 

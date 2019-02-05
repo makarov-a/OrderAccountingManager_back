@@ -13,7 +13,7 @@ public interface DeliveryInfoDao {
 
     boolean removeDeliveryInfoById(int id);
 
-    int getCountPages(int size);
+    int getCountRows();
 
     List<DeliveryInfo> getAllDeliveryInfo(final int pageNo, final int pageSize);
 
