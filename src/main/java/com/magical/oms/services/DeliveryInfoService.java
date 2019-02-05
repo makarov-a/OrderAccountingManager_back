@@ -14,44 +14,44 @@ public class DeliveryInfoService {
     @Autowired
     private DeliveryInfoDao deliveryDao;
 
-    DeliveryInfoDto getDeliveryInfoById(int id) {
+    public DeliveryInfoDto getDeliveryInfoById(int id) {
         return convertToDto(deliveryDao.getDeliveryInfoById(id));
     }
 
-    boolean addDeliveryInfo(DeliveryInfoDto delivery) {
+    public boolean addDeliveryInfo(DeliveryInfoDto delivery) {
         return deliveryDao.addDeliveryInfo(convertFromDto(delivery));
     }
 
-    boolean updDeliveryInfo(DeliveryInfoDto delivery) {
+    public boolean updDeliveryInfo(DeliveryInfoDto delivery) {
         return deliveryDao.updDeliveryInfo(convertFromDto(delivery));
     }
 
-    boolean removeDeliveryInfoById(int id) {
+    public boolean removeDeliveryInfoById(int id) {
         return deliveryDao.removeDeliveryInfoById(id);
     }
 
-    List<DeliveryInfoDto> getAllDeliveryInfo(final int pageNo, final int pageSize) {
+    public List<DeliveryInfoDto> getAllDeliveryInfo(final int pageNo, final int pageSize) {
         List<DeliveryInfoDto> deliveryDto = new ArrayList<>();
         List<DeliveryInfo> list = deliveryDao.getAllDeliveryInfo(pageNo, pageSize);
         list.stream().forEach(i -> deliveryDto.add(convertToDto(i)));
         return deliveryDto;
     }
 
-    List<DeliveryInfoDto> getAllDeliveryInfo() {
+    public List<DeliveryInfoDto> getAllDeliveryInfo() {
         List<DeliveryInfoDto> deliveryDto = new ArrayList<>();
         List<DeliveryInfo> list = deliveryDao.getAllDeliveryInfo(0, getCountElements());
         list.stream().forEach(i -> deliveryDto.add(convertToDto(i)));
         return deliveryDto;
     }
 
-    List<DeliveryInfoDto> getDeliveryInfoByCustomerId(int customerId) {
+    public List<DeliveryInfoDto> getDeliveryInfoByCustomerId(int customerId) {
         List<DeliveryInfoDto> deliveryDto = new ArrayList<>();
         List<DeliveryInfo> list = deliveryDao.getDeliveryInfoByCustomerId(customerId);
         list.stream().forEach(i -> deliveryDto.add(convertToDto(i)));
         return deliveryDto;
     }
 
-    DeliveryInfoDto getDeliveryInfoByOrderId(int orderId) {
+    public DeliveryInfoDto getDeliveryInfoByOrderId(int orderId) {
         return convertToDto(deliveryDao.getDeliveryInfoByOrderId(orderId));
     }
 

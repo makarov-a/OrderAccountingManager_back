@@ -1,6 +1,7 @@
 package com.magical.oms.services;
 
 import com.magical.oms.dao.OrderDao;
+import com.magical.oms.dto.CustomerDto;
 import com.magical.oms.dto.OrderDto;
 import com.magical.oms.dto.ProductDto;
 import com.magical.oms.model.Order;
@@ -20,44 +21,44 @@ public class OrderService {
     @Autowired
     private CustomerService customerService;
 
-    OrderDto getOrderById(int id){
+    public OrderDto getOrderById(int id){
         return convertToDto(orderDao.getOrderById(id));
     }
 
-    boolean addOrder(OrderDto order){
+    public boolean addOrder(OrderDto order){
         return orderDao.addOrder(convertFromDto(order));
     }
 
-    boolean updOrder(OrderDto order){
+    public boolean updOrder(OrderDto order){
         return orderDao.updOrder(convertFromDto(order));
     }
 
-    boolean removeOrderById(int id){
+    public boolean removeOrderById(int id){
         return orderDao.removeOrderById(id);
     }
 
-    List<OrderDto> getAllOrders(final int pageNo, final int pageSize){
+    public List<OrderDto> getAllOrders(final int pageNo, final int pageSize){
         List<OrderDto> ordersDto = new ArrayList<>();
         List<Order> list = orderDao.getAllOrders(pageNo, pageSize);
         list.stream().forEach(i -> ordersDto.add(convertToDto(i)));
         return ordersDto;
     }
 
-    List<OrderDto> getAllOrders(){
+    public List<OrderDto> getAllOrders(){
         List<OrderDto> ordersDto = new ArrayList<>();
         List<Order> list = orderDao.getAllOrders(0, getCountElements());
         list.stream().forEach(i -> ordersDto.add(convertToDto(i)));
         return ordersDto;
     }
 
-    List<OrderDto> getOrdersByCustomerId(int customerId){
+    public List<OrderDto> getOrdersByCustomerId(int customerId){
         List<OrderDto> ordersDto = new ArrayList<>();
         List<Order> list = orderDao.getOrdersByCustomerId(customerId);
         list.stream().forEach(i -> ordersDto.add(convertToDto(i)));
         return ordersDto;
     }
 
-    OrderDto getOrderByProductId(int productId){
+    public OrderDto getOrderByProductId(int productId){
         return convertToDto(orderDao.getOrderByProductId(productId));
     }
 
@@ -101,6 +102,7 @@ public class OrderService {
         for (ProductDto product : orderProducts) {
             costOfOrder += product.getCost();
         }
+
         orderDto.setOrderCost(costOfOrder);
         orderDto.setProductsList(orderProducts);
         orderDto.setDeliveryId(source.getDeliveryId());

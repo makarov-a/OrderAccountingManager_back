@@ -19,41 +19,41 @@ public class CustomerService {
     @Autowired
     private DeliveryInfoService deliveryService;
 
-    CustomerDto getCustomerById(int id) {
+    public CustomerDto getCustomerById(int id) {
         return convertToDto(customerDao.getCustomerById(id));
     }
 
-    boolean addCustomer(CustomerDto customer) {
+    public boolean addCustomer(CustomerDto customer) {
         return customerDao.addCustomer(convertFromDto(customer));
     }
 
-    boolean updCustomer(CustomerDto customer) {
+    public boolean updCustomer(CustomerDto customer) {
         return customerDao.updCustomer(convertFromDto(customer));
     }
 
-    boolean removeCustomerById(int id) {
+    public boolean removeCustomerById(int id) {
         return customerDao.removeCustomerById(id);
     }
 
-    List<CustomerDto> getAllCustomers(final int pageNo, final int pageSize) {
+    public List<CustomerDto> getAllCustomers(final int pageNo, final int pageSize) {
         List<CustomerDto> customersDto = new ArrayList<>();
         List<Customer> list = customerDao.getAllCustomers(pageNo, pageSize);
         list.stream().forEach(i -> customersDto.add(convertToDto(i)));
         return customersDto;
     }
 
-    List<CustomerDto> getAllCustomers() {
+    public List<CustomerDto> getAllCustomers() {
         List<CustomerDto> customersDto = new ArrayList<>();
         List<Customer> list = customerDao.getAllCustomers(0, getCountElements());
         list.stream().forEach(i -> customersDto.add(convertToDto(i)));
         return customersDto;
     }
 
-    CustomerDto getCustomerByOrderId(int orderId) {
+    public CustomerDto getCustomerByOrderId(int orderId) {
         return convertToDto(customerDao.getCustomerByOrderId(orderId));
     }
 
-    CustomerDto getCustomerByDeliveryInfoId(int deliveryId) {
+    public CustomerDto getCustomerByDeliveryInfoId(int deliveryId) {
         return convertToDto(customerDao.getCustomerByDeliveryInfoId(deliveryId));
     }
 
