@@ -6,13 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+@Repository
 public class JdbcOrderDao implements OrderDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcOrderDao.class);
     private final String INSERT_SQL = "INSERT INTO orders(creation_date,deadline_date,order_cost,prepay_amount,order_comment,customer_id) VALUES(?,?,?,?,?,?)";

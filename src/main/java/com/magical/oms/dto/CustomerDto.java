@@ -1,11 +1,14 @@
 package com.magical.oms.dto;
 
+import java.util.List;
+
 public class CustomerDto {
     private int id;
     private String name;
     private String nickname;
     private String phone;
     private String comment;
+    private List<DeliveryInfoDto> deliveries;
 
     public int getId() {
         return id;
@@ -45,5 +48,13 @@ public class CustomerDto {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public List<DeliveryInfoDto> getDeliveries() {
+        return deliveries;
+    }
+
+    public void setDeliveries(List<DeliveryInfoDto> deliveries) {
+        this.deliveries = deliveries;
     }
 }

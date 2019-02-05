@@ -6,13 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+@Repository
 public class JdbcCustomerDao implements CustomerDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcCustomerDao.class);
     private final String INSERT_SQL = "INSERT INTO customers(name,nickname,phone,contact_comment) VALUES(?,?,?,?,?)";
