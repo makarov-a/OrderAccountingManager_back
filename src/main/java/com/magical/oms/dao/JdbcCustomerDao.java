@@ -21,8 +21,6 @@ public class JdbcCustomerDao implements CustomerDao {
     private final String FETCH_ALL_SQL = "SELECT * FROM customers ORDER BY id";
     private final String FETCH_BY_ID_SQL = "SELECT * FROM customers WHERE id = ?";
     private final String FETCH_BY_DELIVERY_ID_SQL = "SELECT * FROM customers JOIN delivery_info WHERE delivery_info.customer_id = customers.id AND delivery_info.id = ?";
-    /**todo: перестроить запрос, возможно изменить схему бд (добавить доп.таблицу связей)**/
-    private final String FETCH_BY_PRODUCT_ID_SQL = "SELECT * FROM customers JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
     private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM customers ORDER BY id";
     @Autowired
@@ -98,13 +96,6 @@ public class JdbcCustomerDao implements CustomerDao {
     public Customer getCustomerByOrderId(int orderId) {
         logger.info("getCustomerByOrderId() is called");
         List<Customer> customerList = this.jdbcTemplate.query(FETCH_BY_ORDER_ID_SQL + orderId, new CustomerRowMapper());
-        return customerList.get(0);
-    }
-
-    @Override
-    public Customer getCustomerByProductId(int productId) {
-        logger.info("getCustomerByProductId() is called");
-        List<Customer> customerList = this.jdbcTemplate.query(FETCH_BY_PRODUCT_ID_SQL + productId, new CustomerRowMapper());
         return customerList.get(0);
     }
 

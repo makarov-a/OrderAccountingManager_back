@@ -19,8 +19,6 @@ public interface CustomerDao {
 
     Customer getCustomerByOrderId(int orderId);
 
-    Customer getCustomerByProductId(int productId);
-
     Customer getCustomerByDeliveryInfoId(int deliveryId);
 
 }
