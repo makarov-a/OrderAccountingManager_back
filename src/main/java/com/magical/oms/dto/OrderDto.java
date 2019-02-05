@@ -12,9 +12,10 @@ public class OrderDto {
     private float orderCost;
     private float prepayAmount;
     private String orderComment;
-    private Customer customer;
+    private CustomerDto customer;
     private List<ProductDto> productsList;
     private boolean complete;
+    private int deliveryId;
 
     public int getId() {
         return id;
@@ -64,11 +65,11 @@ public class OrderDto {
         this.orderComment = orderComment;
     }
 
-    public Customer getCustomer() {
+    public CustomerDto getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerDto customer) {
         this.customer = customer;
     }
 
@@ -86,5 +87,13 @@ public class OrderDto {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
+    }
+
+    public int getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(int deliveryId) {
+        this.deliveryId = deliveryId;
     }
 }

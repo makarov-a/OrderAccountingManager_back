@@ -16,8 +16,8 @@ import java.util.List;
 @Repository
 public class JdbcOrderDao implements OrderDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcOrderDao.class);
-    private final String INSERT_SQL = "INSERT INTO orders(creation_date,deadline_date,order_cost,prepay_amount,order_comment,customer_id) VALUES(?,?,?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE orders SET creation_date = ?, deadline_date = ?, order_cost = ?, prepay_amount = ?, order_comment = ?, customer_id =   WHERE id = ?";
+    private final String INSERT_SQL = "INSERT INTO orders(creation_date,deadline_date,order_cost,prepay_amount,order_comment,customer_id,delivery_id) VALUES(?,?,?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE orders SET creation_date = ?, deadline_date = ?, order_cost = ?, prepay_amount = ?, order_comment = ?, delivery_id = ?, customer_id =   WHERE id = ?";
     //todo: обновление в products.id_order при update'е
     private final String REMOVE_SQL = "DELETE FROM orders WHERE id = ?";
     private final String FETCH_SQL = "SELECT * FROM orders ORDER BY id";
@@ -46,7 +46,7 @@ public class JdbcOrderDao implements OrderDao {
     public boolean addOrder(Order order) {
         int result = jdbcTemplate.update(INSERT_SQL, new Object[]{order.getCreationDate(),order.getDeadlineDate(),
                                                                   order.getOrderCost(),order.getPrepayAmount(),
-                                                                  order.getOrderComment(),order.getCustomerId()
+                                                                  order.getOrderComment(),order.getCustomerId(),order.getDeliveryId()
         });
 
         if (result > 0) {
@@ -62,7 +62,7 @@ public class JdbcOrderDao implements OrderDao {
     public boolean updOrder(Order order) {
         int result = jdbcTemplate.update(UPDATE_SQL, new Object[]{order.getCreationDate(),order.getDeadlineDate(),
                 order.getOrderCost(),order.getPrepayAmount(),
-                order.getOrderComment(),order.getCustomerId(),order.getId()});
+                order.getOrderComment(),order.getCustomerId(),order.getDeliveryId(),order.getId()});
         if (result > 0) {
             logger.info("updOrder() with id = " + order.getId());
             return true;
@@ -126,7 +126,7 @@ public class JdbcOrderDao implements OrderDao {
             order.setPrepayAmount(resultSet.getFloat("prepay_amount"));
             order.setOrderComment(resultSet.getString("order_comment"));
             order.setCustomerId(resultSet.getInt("customer_id"));
-
+            order.setDeliveryId(resultSet.getInt("delivery_id"));
             return order;
         }
 

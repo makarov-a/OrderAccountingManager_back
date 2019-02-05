@@ -11,6 +11,7 @@ public class Order {
     private float prepayAmount;
     private String orderComment;
     private int customerId;
+    private int deliveryId;
 
     public int getId() {
         return id;
@@ -66,5 +67,13 @@ public class Order {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    public int getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(int deliveryId) {
+        this.deliveryId = deliveryId;
     }
 }
