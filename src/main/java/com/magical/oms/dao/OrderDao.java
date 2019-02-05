@@ -19,7 +19,5 @@ public interface OrderDao {
 
     List<Order> getOrdersByCustomerId(int customerId);
 
-    List<Order> getOrdersByDeliveryInfoId(int deliveryId);
-
     Order getOrderByProductId(int productId);
 }

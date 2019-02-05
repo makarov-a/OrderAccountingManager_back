@@ -18,11 +18,11 @@ public class JdbcDeliveryInfoDao implements DeliveryInfoDao {
     private final String INSERT_SQL = "INSERT INTO delivery_info(customer_id,address,delivery_cost) VALUES(?,?,?)";
     private final String UPDATE_SQL = "UPDATE delivery_info SET customer_id = ?, address = ?, delivery_cost = ? WHERE id = ?";
     private final String REMOVE_SQL = "DELETE FROM delivery_info WHERE id = ?";
-    private final String FETCH_SQL = "SELECT * FROM delivery_info ORDER BY id";
-    private final String FETCH_SQL_BY_ID = "SELECT * FROM delivery_info WHERE id = ?";
+    private final String FETCH_ALL_SQL = "SELECT * FROM delivery_info ORDER BY id";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM delivery_info WHERE id = ?";
+    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM delivery_info WHERE customer_id = ?";
+    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM delivery_info JOIN orders WHERE delivery_info.customer_id = orders.customer_id AND orders.id = ?";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM delivery_info ORDER BY id";
-    private final String FETCH_SQL_BY_CUSTOMER_ID = "SELECT * FROM delivery_info WHERE customer_id = ?";
-    private final String FETCH_SQL_BY_ORDER_ID = "SELECT * FROM delivery_info JOIN orders WHERE delivery_info.customer_id = orders.customer_id AND orders.id = ?";
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
@@ -36,7 +36,7 @@ public class JdbcDeliveryInfoDao implements DeliveryInfoDao {
     @Override
     public DeliveryInfo getDeliveryInfoById(int id) {
         logger.info("getDeliveryInfoById() for  id = " + id);
-        List<DeliveryInfo> deliveryList = this.jdbcTemplate.query(FETCH_SQL_BY_ID + id, new DeliveryRowMapper());
+        List<DeliveryInfo> deliveryList = this.jdbcTemplate.query(FETCH_BY_ID_SQL + id, new DeliveryRowMapper());
         return deliveryList.get(0);
     }
 
@@ -88,7 +88,7 @@ public class JdbcDeliveryInfoDao implements DeliveryInfoDao {
     public List<DeliveryInfo> getAllDeliveryInfo(int pageNo, int pageSize) {
         logger.info("getAllProducts() is called");
         PaginationHelper<DeliveryInfo> pageHelper = new PaginationHelper<>();
-        Page deliveriesPage = pageHelper.fetchPage(this.jdbcTemplate, COUNT_PAGES_SQL, FETCH_SQL, new Object[]{},
+        Page deliveriesPage = pageHelper.fetchPage(this.jdbcTemplate, COUNT_PAGES_SQL, FETCH_ALL_SQL, new Object[]{},
                 pageNo, pageSize, new DeliveryRowMapper());
         return deliveriesPage.getPageItems();
     }
@@ -96,14 +96,14 @@ public class JdbcDeliveryInfoDao implements DeliveryInfoDao {
     @Override
     public List<DeliveryInfo> getDeliveryInfoByCustomerId(int customerId) {
         logger.info("getDeliveryInfoByCustomerId() is called");
-        List<DeliveryInfo> deliveryList = this.jdbcTemplate.query(FETCH_SQL_BY_CUSTOMER_ID + customerId, new DeliveryRowMapper());
+        List<DeliveryInfo> deliveryList = this.jdbcTemplate.query(FETCH_BY_CUSTOMER_ID_SQL + customerId, new DeliveryRowMapper());
         return deliveryList;
     }
 
     @Override
     public DeliveryInfo getDeliveryInfoByOrderId(int orderId) {
         logger.info("getDeliveryInfoByOrderId() is called");
-        List<DeliveryInfo> deliveryList = this.jdbcTemplate.query(FETCH_SQL_BY_ORDER_ID + orderId, new DeliveryRowMapper());
+        List<DeliveryInfo> deliveryList = this.jdbcTemplate.query(FETCH_BY_ORDER_ID_SQL + orderId, new DeliveryRowMapper());
         return deliveryList.get(0);
     }
 

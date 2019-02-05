@@ -10,7 +10,6 @@ public class Order {
     private float orderCost;
     private float prepayAmount;
     private String orderComment;
-    private List<Product> orderList;
     private int customerId;
 
     public int getId() {
@@ -59,14 +58,6 @@ public class Order {
 
     public void setOrderComment(String orderComment) {
         this.orderComment = orderComment;
-    }
-
-    public List<Product> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Product> orderList) {
-        this.orderList = orderList;
     }
 
     public int getCustomerId() {

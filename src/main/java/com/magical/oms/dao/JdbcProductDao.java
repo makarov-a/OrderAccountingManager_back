@@ -21,10 +21,10 @@ public class JdbcProductDao implements ProductDao {
     private final String UPDATE_SQL = "UPDATE products SET name = ?, cost = ?, size = ?, img = ?, id_order = ?  WHERE id = ?";
     private final String REMOVE_SQL = "DELETE FROM products WHERE id = ?";
     private final String FETCH_SQL = "SELECT * FROM products ORDER BY id";
-    private final String FETCH_SQL_BY_ID = "SELECT * FROM products WHERE id = ?";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM products WHERE id = ?";
+    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products WHERE id_order = ?";
+    private final String FETCH_BY_CUSTOMER_ID_SQL = "SELECT * FROM products JOIN orders WHERE products.id_order = orders.id AND orders.customer_id = ?";
     private final String COUNT_PAGES_SQL = "SELECT count(*) FROM products ORDER BY id";
-    private final String FETCH_SQL_BY_ORDER_ID = "SELECT * FROM products WHERE id_order = ?";
-    private final String FETCH_SQL_BY_CUSTOMER_ID = "SELECT * FROM products JOIN orders WHERE products.id_order = orders.id AND orders.customer_id = ?";
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
@@ -38,7 +38,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public Product getProductById(int id) {
         logger.info("getProductById() for  id = " + id);
-        List<Product> productList = this.jdbcTemplate.query(FETCH_SQL_BY_ID + id, new ProductRowMapper());
+        List<Product> productList = this.jdbcTemplate.query(FETCH_BY_ID_SQL + id, new ProductRowMapper());
         return productList.get(0);
     }
 
@@ -100,14 +100,14 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public List<Product> getProductsByOrderId(int orderId) {
         logger.info("getProductsByOrderId() is called");
-        List<Product> productList = this.jdbcTemplate.query(FETCH_SQL_BY_ORDER_ID + orderId, new ProductRowMapper());
+        List<Product> productList = this.jdbcTemplate.query(FETCH_BY_ORDER_ID_SQL + orderId, new ProductRowMapper());
         return productList;
     }
 
     @Override
     public List<Product> getProductsByCustomerId(int customerId) {
         logger.info("getProductsByCustomerId() is called");
-        List<Product> productList = this.jdbcTemplate.query(FETCH_SQL_BY_CUSTOMER_ID + customerId, new ProductRowMapper());
+        List<Product> productList = this.jdbcTemplate.query(FETCH_BY_CUSTOMER_ID_SQL + customerId, new ProductRowMapper());
         return productList;
     }
 

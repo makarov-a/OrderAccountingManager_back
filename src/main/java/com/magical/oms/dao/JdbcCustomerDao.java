@@ -1,7 +1,6 @@
 package com.magical.oms.dao;
 
 import com.magical.oms.model.Customer;
-import com.magical.oms.model.DeliveryInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,13 @@ public class JdbcCustomerDao implements CustomerDao {
     private final String INSERT_SQL = "INSERT INTO customers(name,nickname,phone,contact_comment) VALUES(?,?,?,?,?)";
     private final String UPDATE_SQL = "UPDATE customers SET name = ?, nickname = ?, phone = ?, contact_comment WHERE id = ?";
     private final String REMOVE_SQL = "DELETE FROM customers WHERE id = ?";
-    private final String FETCH_SQL = "SELECT * FROM customers ORDER BY id";
-    private final String FETCH_SQL_BY_ID = "SELECT * FROM customers WHERE id = ?";
-    private final String COUNT_PAGES_SQL = "SELECT count(*) FROM customers ORDER BY id";
-
-    private final String FETCH_SQL_BY_DELIVERY_ID = "SELECT * FROM customers JOIN delivery_info WHERE delivery_info.customer_id = customers.id AND delivery_info.id = ?";
+    private final String FETCH_ALL_SQL = "SELECT * FROM customers ORDER BY id";
+    private final String FETCH_BY_ID_SQL = "SELECT * FROM customers WHERE id = ?";
+    private final String FETCH_BY_DELIVERY_ID_SQL = "SELECT * FROM customers JOIN delivery_info WHERE delivery_info.customer_id = customers.id AND delivery_info.id = ?";
     /**todo: перестроить запрос, возможно изменить схему бд (добавить доп.таблицу связей)**/
-    private final String FETCH_SQL_BY_PRODUCT_ID = "SELECT * FROM customers JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
-    private final String FETCH_SQL_BY_ORDER_ID = "SELECT * FROM products JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
+    private final String FETCH_BY_PRODUCT_ID_SQL = "SELECT * FROM customers JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
+    private final String FETCH_BY_ORDER_ID_SQL = "SELECT * FROM products JOIN orders WHERE order.customer_id = customers.id AND orders.id = ?";
+    private final String COUNT_PAGES_SQL = "SELECT count(*) FROM customers ORDER BY id";
     @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
@@ -40,7 +38,7 @@ public class JdbcCustomerDao implements CustomerDao {
     @Override
     public Customer getCustomerById(int id) {
         logger.info("getCustomerById() for  id = " + id);
-        List<Customer> customerList = this.jdbcTemplate.query(FETCH_SQL_BY_ID + id, new CustomerRowMapper());
+        List<Customer> customerList = this.jdbcTemplate.query(FETCH_BY_ID_SQL + id, new CustomerRowMapper());
         return customerList.get(0);
     }
 
@@ -85,7 +83,7 @@ public class JdbcCustomerDao implements CustomerDao {
     public List<Customer> getAllCustomers(int pageNo, int pageSize) {
         logger.info("getAllCustomers() is called");
         PaginationHelper<Customer> pageHelper = new PaginationHelper<>();
-        Page customersPage = pageHelper.fetchPage(this.jdbcTemplate, COUNT_PAGES_SQL, FETCH_SQL, new Object[]{},
+        Page customersPage = pageHelper.fetchPage(this.jdbcTemplate, COUNT_PAGES_SQL, FETCH_ALL_SQL, new Object[]{},
                 pageNo, pageSize, new CustomerRowMapper());
         return customersPage.getPageItems();
     }
@@ -99,21 +97,21 @@ public class JdbcCustomerDao implements CustomerDao {
     @Override
     public Customer getCustomerByOrderId(int orderId) {
         logger.info("getCustomerByOrderId() is called");
-        List<Customer> customerList = this.jdbcTemplate.query(FETCH_SQL_BY_ORDER_ID + orderId, new CustomerRowMapper());
+        List<Customer> customerList = this.jdbcTemplate.query(FETCH_BY_ORDER_ID_SQL + orderId, new CustomerRowMapper());
         return customerList.get(0);
     }
 
     @Override
     public Customer getCustomerByProductId(int productId) {
         logger.info("getCustomerByProductId() is called");
-        List<Customer> customerList = this.jdbcTemplate.query(FETCH_SQL_BY_PRODUCT_ID + productId, new CustomerRowMapper());
+        List<Customer> customerList = this.jdbcTemplate.query(FETCH_BY_PRODUCT_ID_SQL + productId, new CustomerRowMapper());
         return customerList.get(0);
     }
 
     @Override
     public Customer getCustomerByDeliveryInfoId(int deliveryId) {
         logger.info("getCustomerByDeliveryInfoId() is called");
-        List<Customer> customerList = this.jdbcTemplate.query(FETCH_SQL_BY_DELIVERY_ID + deliveryId, new CustomerRowMapper());
+        List<Customer> customerList = this.jdbcTemplate.query(FETCH_BY_DELIVERY_ID_SQL + deliveryId, new CustomerRowMapper());
         return customerList.get(0);
     }
 
