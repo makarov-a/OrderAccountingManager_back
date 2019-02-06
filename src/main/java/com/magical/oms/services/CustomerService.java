@@ -44,7 +44,7 @@ public class CustomerService {
 
     public List<CustomerDto> getAllCustomers() {
         List<CustomerDto> customersDto = new ArrayList<>();
-        List<Customer> list = customerDao.getAllCustomers(0, getCountElements());
+        List<Customer> list = customerDao.getAllCustomers(1, getCountElements());
         list.stream().forEach(i -> customersDto.add(convertToDto(i)));
         return customersDto;
     }

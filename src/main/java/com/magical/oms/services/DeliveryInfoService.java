@@ -39,7 +39,7 @@ public class DeliveryInfoService {
 
     public List<DeliveryInfoDto> getAllDeliveryInfo() {
         List<DeliveryInfoDto> deliveryDto = new ArrayList<>();
-        List<DeliveryInfo> list = deliveryDao.getAllDeliveryInfo(0, getCountElements());
+        List<DeliveryInfo> list = deliveryDao.getAllDeliveryInfo(1, getCountElements());
         list.stream().forEach(i -> deliveryDto.add(convertToDto(i)));
         return deliveryDto;
     }

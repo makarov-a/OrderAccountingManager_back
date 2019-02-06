@@ -41,7 +41,7 @@ public class DeliveryInfoController {
         return list;
     }
 
-    @GetMapping("/deliveries/{customerId}")
+    @GetMapping("/deliveries/{deliveryId}")
     public DeliveryInfoDto getOrder(@PathVariable("deliveryId") Integer deliveryId) {
         logger.info("GET /deliveries/"+deliveryId);
         return service.getDeliveryInfoById(deliveryId);

@@ -46,7 +46,7 @@ public class OrderService {
 
     public List<OrderDto> getAllOrders(){
         List<OrderDto> ordersDto = new ArrayList<>();
-        List<Order> list = orderDao.getAllOrders(0, getCountElements());
+        List<Order> list = orderDao.getAllOrders(1, getCountElements());
         list.stream().forEach(i -> ordersDto.add(convertToDto(i)));
         return ordersDto;
     }

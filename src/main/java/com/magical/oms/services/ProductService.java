@@ -16,7 +16,7 @@ public class ProductService {
 
     public List<ProductDto> getAllProducts() {
         List<ProductDto> productsDto = new ArrayList<>();
-        List<Product> list = productDao.getAllProducts(0, getCountElements());
+        List<Product> list = productDao.getAllProducts(1, getCountElements());
         list.stream().forEach(i -> productsDto.add(convertToDto(i)));
         return productsDto;
     }
