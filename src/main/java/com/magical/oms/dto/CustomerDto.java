@@ -1,5 +1,6 @@
 package com.magical.oms.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class CustomerDto {
@@ -8,6 +9,7 @@ public class CustomerDto {
     private String nickname;
     private String phone;
     private String comment;
+    @NotNull
     private List<DeliveryInfoDto> deliveries;
 
     public int getId() {

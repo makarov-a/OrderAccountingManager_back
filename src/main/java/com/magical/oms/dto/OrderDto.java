@@ -20,6 +20,7 @@ public class OrderDto {
     private String orderComment;
     @NotNull
     private CustomerDto customer;
+    @NotNull
     private List<ProductDto> productsList;
     private boolean complete;
     private int deliveryId;

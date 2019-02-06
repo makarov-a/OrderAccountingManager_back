@@ -7,6 +7,7 @@ public class DeliveryInfoDto {
     @NotNull
     private String address;
     private float costDelivery;
+    @NotNull
     private int customerId;
 
     public int getId() {
