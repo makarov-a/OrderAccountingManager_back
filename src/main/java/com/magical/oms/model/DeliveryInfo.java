@@ -1,5 +1,8 @@
 package com.magical.oms.model;
 
+/**
+ * Сущность - Информация о доставке
+ */
 public class DeliveryInfo {
     private int id;
     private int customerId;

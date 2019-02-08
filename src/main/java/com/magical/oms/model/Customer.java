@@ -1,7 +1,8 @@
 package com.magical.oms.model;
 
-import java.sql.Date;
-
+/**
+ * Сущность - Покупатель
+ */
 public class Customer {
     private int id;
     private String name;

@@ -3,6 +3,9 @@ package com.magical.oms.model;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * Сущность - Заказ
+ */
 public class Order {
     private int id;
     private Date creationDate;

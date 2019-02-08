@@ -13,6 +13,9 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+/**
+ * Реализация интерфейса DAO информации о доставке через JDBC
+ */
 @Repository
 public class JdbcDeliveryInfoDao implements DeliveryInfoDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcDeliveryInfoDao.class);

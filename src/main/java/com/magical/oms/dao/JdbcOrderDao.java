@@ -13,6 +13,9 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+/**
+ * Реализация интерфейса DAO заказа через JDBC
+ */
 @Repository
 public class JdbcOrderDao implements OrderDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcOrderDao.class);

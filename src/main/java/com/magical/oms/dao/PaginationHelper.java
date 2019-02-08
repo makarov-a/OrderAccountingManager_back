@@ -1,18 +1,17 @@
 package com.magical.oms.dao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Вспомогательный класс для пагинации
+ *
+ * @param <E>
+ */
 public class PaginationHelper<E> {
-    private static Logger logger = LoggerFactory.getLogger(PaginationHelper.class);
     public Page<E> fetchPage(
             final JdbcTemplate jt,
             final String sqlCountRows,
@@ -22,41 +21,36 @@ public class PaginationHelper<E> {
             final int pageSize,
             final RowMapper<E> rowMapper) {
 
-        // determine how many rows are available
+        // получение количества записей
         final int rowCount = jt.queryForObject(sqlCountRows, Integer.class);
 
-        // calculate the number of pages
+        // вычисление количества страниц пагинации
         int pageCount = rowCount / pageSize;
         if (rowCount > pageSize * pageCount) {
             pageCount++;
         }
-        logger.info("rowCount="+rowCount+" pageCount="+pageCount+" pageSize="+pageSize);
-        // create the page object
+        // создание страницы пагинации
         final Page<E> page = new Page<E>();
         page.setPageNumber(pageNo);
         page.setPagesAvailable(pageCount);
 
-        // fetch a single page of results
+        // получение первой записи для страницы пагинации
         final int startRow = (pageNo - 1) * pageSize;
-
-        logger.info("startRow="+startRow);
         jt.query(
                 sqlFetchRows,
                 args,
                 (ResultSet rs) -> {
-                        final List pageItems = page.getPageItems();
-                        int currentRow = 0;
-
-                        while (rs.next() && currentRow <= startRow + pageSize) {
-                            logger.info("test pagination ok!");
-                            if (currentRow >= startRow) {
-                                pageItems.add(rowMapper.mapRow(rs, currentRow));
-                            }
-                            currentRow++;
+                    final List pageItems = page.getPageItems();
+                    int currentRow = 0;
+                    while (rs.next() && currentRow <= startRow + pageSize) {
+                        if (currentRow >= startRow) {
+                            pageItems.add(rowMapper.mapRow(rs, currentRow));
                         }
-                        return page;
+                        currentRow++;
                     }
-                );
+                    return page;
+                }
+        );
         return page;
     }
 

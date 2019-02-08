@@ -2,6 +2,9 @@ package com.magical.oms.dto;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * DTO для сущности "Информация о доставке"
+ */
 public class DeliveryInfoDto {
     private int id;
     @NotNull

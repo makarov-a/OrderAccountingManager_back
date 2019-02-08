@@ -8,6 +8,9 @@ import javax.validation.constraints.PastOrPresent;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * DTO для сущности Заказ
+ */
 public class OrderDto {
     private int id;
     @NotNull

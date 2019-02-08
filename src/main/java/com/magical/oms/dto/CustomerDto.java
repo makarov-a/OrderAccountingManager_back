@@ -3,6 +3,9 @@ package com.magical.oms.dto;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * DTO для сущности "Покупатель"
+ */
 public class CustomerDto {
     private int id;
     private String name;

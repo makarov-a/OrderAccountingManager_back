@@ -2,6 +2,9 @@ package com.magical.oms.dto;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * DTO для сущности Продукт
+ */
 public class ProductDto {
     private int id;
     private String name;

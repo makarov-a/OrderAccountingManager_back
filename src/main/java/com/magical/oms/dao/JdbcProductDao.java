@@ -14,6 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Реализация интерфейса DAO продукта через JDBC
+ */
 @Repository
 public class JdbcProductDao implements ProductDao {
     private static Logger logger = LoggerFactory.getLogger(JdbcProductDao.class);
@@ -122,7 +125,6 @@ public class JdbcProductDao implements ProductDao {
             product.setSize(resultSet.getFloat("size"));
             product.setImg(resultSet.getString("img"));
             product.setOrderId(resultSet.getInt("id_order"));
-            logger.info("name = "+resultSet.getString("name"));
             return product;
         }
 
